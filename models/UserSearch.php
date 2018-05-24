@@ -5,12 +5,12 @@ namespace kouosl\event\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use kouosl\event\models\Event;
+use kouosl\event\models\User;
 
 /**
- * EventSearch represents the model behind the search form of `kouosl\event\models\Event`.
+ * UserSearch represents the model behind the search form of `kouosl\event\models\User`.
  */
-class EventSearch extends Event
+class UserSearch extends User
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class EventSearch extends Event
     public function rules()
     {
         return [
-            [['Id', 'EtkinlikKontenjan', 'OluşturanKişiId'], 'integer'],
-            [['EtkinlikAd', 'EtkinlikAciklama', 'EtkinlikTarihi', 'Adres'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email', 'access_token'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class EventSearch extends Event
      */
     public function search($params)
     {
-        $query = Event::find();
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -59,15 +59,18 @@ class EventSearch extends Event
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'Id' => $this->Id,
-            'EtkinlikKontenjan' => $this->EtkinlikKontenjan,
-            'EtkinlikTarihi' => $this->EtkinlikTarihi,
-            'OluşturanKişiId' => $this->OluşturanKişiId,
+            'id' => $this->id,
+            'status' => $this->status,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'EtkinlikAd', $this->EtkinlikAd])
-            ->andFilterWhere(['like', 'EtkinlikAciklama', $this->EtkinlikAciklama])
-            ->andFilterWhere(['like', 'Adres', $this->Adres]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email])
+            ->andFilterWhere(['like', 'access_token', $this->access_token]);
 
         return $dataProvider;
     }

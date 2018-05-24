@@ -4,13 +4,13 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model kouosl\event\models\Event */
+/* @var $model kouosl\event\models\Etkinlikuser */
 
 $this->title = $model->Id;
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Etkinlikusers', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="event-view">
+<div class="etkinlikuser-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -25,17 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
         ]) ?>
     </p>
 
-
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
             'Id',
-            'EtkinlikAd',
-            'EtkinlikAciklama:ntext',
-            'EtkinlikKontenjan',
-            'EtkinlikTarihi',
-            'Adres',
-            'OluşturanKişiId',
+            'EtkinlikId',
+            'BaşvuranKişiId',
+            'BaşvuruTarihi',
+            'Onay',
         ],
     ]) ?>
 

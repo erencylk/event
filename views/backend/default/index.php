@@ -20,4 +20,6 @@ $form = ActiveForm::begin([
             <?= Html::submitButton('Login', ['class' => 'btn btn-primary']) ?>
         </div>
     </div>
+
+    
 <?php ActiveForm::end() ?>

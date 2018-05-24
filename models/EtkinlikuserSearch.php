@@ -5,12 +5,12 @@ namespace kouosl\event\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use kouosl\event\models\Event;
+use kouosl\event\models\Etkinlikuser;
 
 /**
- * EventSearch represents the model behind the search form of `kouosl\event\models\Event`.
+ * EtkinlikuserSearch represents the model behind the search form of `kouosl\event\models\Etkinlikuser`.
  */
-class EventSearch extends Event
+class EtkinlikuserSearch extends Etkinlikuser
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class EventSearch extends Event
     public function rules()
     {
         return [
-            [['Id', 'EtkinlikKontenjan', 'OluşturanKişiId'], 'integer'],
-            [['EtkinlikAd', 'EtkinlikAciklama', 'EtkinlikTarihi', 'Adres'], 'safe'],
+            [['Id', 'EtkinlikId', 'BaşvuranKişiId'], 'integer'],
+            [['BaşvuruTarihi', 'Onay'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class EventSearch extends Event
      */
     public function search($params)
     {
-        $query = Event::find();
+        $query = Etkinlikuser::find();
 
         // add conditions that should always apply here
 
@@ -60,14 +60,12 @@ class EventSearch extends Event
         // grid filtering conditions
         $query->andFilterWhere([
             'Id' => $this->Id,
-            'EtkinlikKontenjan' => $this->EtkinlikKontenjan,
-            'EtkinlikTarihi' => $this->EtkinlikTarihi,
-            'OluşturanKişiId' => $this->OluşturanKişiId,
+            'EtkinlikId' => $this->EtkinlikId,
+            'BaşvuranKişiId' => $this->BaşvuranKişiId,
+            'BaşvuruTarihi' => $this->BaşvuruTarihi,
         ]);
 
-        $query->andFilterWhere(['like', 'EtkinlikAd', $this->EtkinlikAd])
-            ->andFilterWhere(['like', 'EtkinlikAciklama', $this->EtkinlikAciklama])
-            ->andFilterWhere(['like', 'Adres', $this->Adres]);
+        $query->andFilterWhere(['like', 'Onay', $this->Onay]);
 
         return $dataProvider;
     }

@@ -7,10 +7,16 @@ use Yii;
 /**
  * This is the model class for table "event".
  *
- * @property int $id
- * @property string $title
- * @property string $description
- * @property string $date
+ * @property int $Id
+ * @property string $EtkinlikAd
+ * @property string $EtkinlikAciklama
+ * @property int $EtkinlikKontenjan
+ * @property string $EtkinlikTarihi
+ * @property string $Adres
+ * @property int $OluşturanKişiId
+ *
+ * @property Etkinlikuser[] $etkinlikusers
+ * @property User $oluşturanKişi
  */
 class Event extends \yii\db\ActiveRecord
 {
@@ -28,11 +34,12 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id', 'title', 'description', 'date'], 'required'],
-            [['id'], 'integer'],
-            [['title', 'description'], 'string'],
-            [['date'], 'safe'],
-            [['id'], 'unique'],
+            [['EtkinlikAd', 'EtkinlikAciklama', 'EtkinlikKontenjan', 'EtkinlikTarihi', 'Adres', 'OluşturanKişiId'], 'required'],
+            [['EtkinlikAciklama'], 'string'],
+            [['EtkinlikKontenjan', 'OluşturanKişiId'], 'integer'],
+            [['EtkinlikTarihi'], 'safe'],
+            [['EtkinlikAd', 'Adres'], 'string', 'max' => 200],
+            [['OluşturanKişiId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['OluşturanKişiId' => 'id']],
         ];
     }
 
@@ -42,10 +49,29 @@ class Event extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'date' => 'Date',
+            'Id' => 'ID',
+            'EtkinlikAd' => 'Etkinlik Ad',
+            'EtkinlikAciklama' => 'Etkinlik Aciklama',
+            'EtkinlikKontenjan' => 'Etkinlik Kontenjan',
+            'EtkinlikTarihi' => 'Etkinlik Tarihi',
+            'Adres' => 'Adres',
+            'OluşturanKişiId' => 'Oluşturan Kişi ID',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getEtkinlikusers()
+    {
+        return $this->hasMany(Etkinlikuser::className(), ['EtkinlikId' => 'Id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOluşturanKişi()
+    {
+        return $this->hasOne(User::className(), ['id' => 'OluşturanKişiId']);
     }
 }

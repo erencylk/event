@@ -3,16 +3,16 @@
 namespace kouosl\event\controllers\backend;
 
 use Yii;
-use kouosl\event\models\Event;
-use kouosl\event\models\EventSearch;
+use kouosl\event\models\Etkinlikuser;
+use kouosl\event\models\EtkinlikuserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * EventController implements the CRUD actions for Event model.
+ * EtkinlikuserController implements the CRUD actions for Etkinlikuser model.
  */
-class EventController extends Controller
+class EtkinlikuserController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class EventController extends Controller
     }
 
     /**
-     * Lists all Event models.
+     * Lists all Etkinlikuser models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new EventSearch();
+        $searchModel = new EtkinlikuserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class EventController extends Controller
     }
 
     /**
-     * Displays a single Event model.
+     * Displays a single Etkinlikuser model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class EventController extends Controller
     }
 
     /**
-     * Creates a new Event model.
+     * Creates a new Etkinlikuser model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Event();
+        $model = new Etkinlikuser();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->Id]);
@@ -76,7 +76,7 @@ class EventController extends Controller
     }
 
     /**
-     * Updates an existing Event model.
+     * Updates an existing Etkinlikuser model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class EventController extends Controller
     }
 
     /**
-     * Deletes an existing Event model.
+     * Deletes an existing Etkinlikuser model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class EventController extends Controller
     }
 
     /**
-     * Finds the Event model based on its primary key value.
+     * Finds the Etkinlikuser model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Event the loaded model
+     * @return Etkinlikuser the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Event::findOne($id)) !== null) {
+        if (($model = Etkinlikuser::findOne($id)) !== null) {
             return $model;
         }
 
